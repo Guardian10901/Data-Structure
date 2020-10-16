@@ -1,0 +1,94 @@
+// Program to add 2 polynomial
+#include<stdio.h>
+#include<conio.h>
+struct pol{
+	    int co;
+	    int ex;
+	    }terms[30];
+int c=0,af,al,bl,bf,cf,cl;
+//input
+void input(int n)
+{ for(int i=0; i<n ;i++)
+  { scanf("%i%i",&terms[c].co,&terms[c].ex);
+    c++;
+    }
+}
+//sort
+void sort(int st,int sp)
+{ struct pol temp;
+  for (int i=0;i<(sp-st);i++)
+   for(int j=0;j<sp-st-i;j++)
+      if  (terms[st+j].ex <terms[st+j+1].ex)
+       {temp=terms[st+j];
+	terms[st+j]=terms[st+j+1];
+	terms[st+j+1]=temp;
+	}
+  }
+//add
+int add()
+{ int p,q;
+  struct pol temp;
+  p=af;
+  q=bf;
+  while(p<=al&&q<=bl)
+  { int t=terms[p].ex-terms[q].ex;
+   if (t==0)
+   {temp.ex=terms[q].ex;
+   temp.co=terms[p].co+terms[q].co;
+   p++;
+   q++;
+   }
+   else if (t>0)
+     {temp=terms[p];
+      p++;
+      }
+      else
+      {temp=terms[q];
+       q++;
+       }
+ terms[c]=temp;
+ c++;
+     }
+while(p<=al)
+{terms[c]=terms[p];
+ p++;
+
+}
+while(q<=bl)
+
+{ terms[c]=terms[q];
+q++;
+}
+return c-1;
+}
+//display
+void display(int st,int sp)
+{for (int i=st;i<=sp;i++)
+ {printf("%i x^%i",terms[i].co, terms[i].ex);
+  if(i!=sp)
+  printf(" + ");
+} printf("\n");
+}
+void main()
+{ int n,m;
+  printf("enter the no:terms in  1st polynomial");
+  scanf("%i",&n);
+  input(n);
+  af=0;
+  al=n-1;
+  sort(af,al);
+  display(af,al);
+  printf("enter the no: of terms in 2nd polynomial");
+  scanf("%i",&m);
+  input(m);
+  bf=al+1;
+  bl=al+m;
+  cf=bl+1;
+  sort(bf,bl);
+  display(bf,bl);
+  cl=add();
+  printf("sum \n");
+  display(cf,cl);
+  getch();
+  }
+
