@@ -1,1 +1,175 @@
+//polynomialaddition
+#include<stdio.h>
+#include<malloc.h>
+struct poly{
+    int coe;
+    int expo;
+    struct poly*next;
+};
+//sort 
+struct poly* sort(struct poly* a)
 
+{ 
+  printf("ggg");
+  struct poly * ptr,*j;
+  int p,p2;
+  ptr=a;
+  j=a;
+  while(ptr!=NULL)
+  {  j=ptr->next;
+      while(j!=NULL)
+      {
+          if((j->expo)>(ptr->expo))
+          {
+           p=j->coe;
+           p2=j->expo;
+           j->coe=ptr->coe;
+           j->expo=ptr->expo;
+           ptr->coe=p;
+           ptr->expo=p2;
+          printf("jjj");
+          }
+          j=j->next;
+        }
+        printf("ptr");
+        ptr=ptr->next;
+      }
+      return a;
+  }
+//add 
+struct poly* add(struct poly *a,struct poly *b)
+{
+    struct poly *i,*j,*r;
+    struct poly *t;
+    r=NULL;
+    i=a;
+    j=b;
+    while(i!=NULL&&j!=NULL)
+    {  t=(struct poly*)malloc(sizeof(struct poly));
+        if(i->expo==j->expo)
+        {
+          printf("eq\n");
+          t->coe=i->coe+j->coe;
+          t->expo=i->expo;
+          if(r==NULL)
+          t->next=NULL;
+          else 
+          t->next=r;
+          r=t;
+          i=i->next;
+          j=j->next;
+        }
+        else
+          if(i->expo>j->expo)
+          { printf("A\n");
+             t->coe=i->coe;
+             t->expo=i->expo;
+             if(r==NULL)
+             t->next=NULL;
+             else 
+             t->next=r;
+             r=t;
+             i=i->next;
+    
+          }
+          else
+          if(i->expo<j->expo)
+          { printf("B\n");
+             t->coe=j->coe;
+             t->expo=j->expo;
+             if(r==NULL)
+             t->next=NULL;
+             else 
+             t->next=r;
+             r=t;
+             j=j->next;
+          }
+    
+    }
+    while(i!=NULL)
+    {
+        t=(struct poly*)malloc(sizeof(struct poly));
+         t->coe=i->coe;
+         t->expo=i->expo;
+          t->next=r;
+          r=t;
+          i=i->next;
+          
+    }
+     while(j!=NULL)
+    {
+        t=(struct poly*)malloc(sizeof(struct poly));
+         t->coe=j->coe;
+         t->expo=j->expo;
+          t->next=r;
+          r=t;
+          j=j->next;
+          
+    }
+return r;
+    
+}
+//display 
+void display(struct poly* a)
+{ printf("polynomial\n");
+ struct poly* i;
+   i=a;
+    while(i->next!=NULL)
+    { if(i->coe!=0)
+        {printf("%i^%i + ",i->coe,i->expo);
+        i=i->next;
+    }}
+    if(i->coe!=0)
+    printf("%i^%i\n",i->coe,i->expo);
+    
+}
+//input
+struct poly* input(int n)
+{
+    struct poly*r=NULL;
+    struct poly*t;
+    printf("Enter the polynomial\n");
+    for(int i=1;i<=n;i++)
+    {
+       t=(struct poly*)malloc(sizeof(struct poly));
+       if(t==NULL)
+       printf("error");
+       printf("coefficient:");
+       scanf("%i",&t->coe);
+       printf("Exponent:");
+       scanf("%i",&t->expo);
+       if(r==NULL)
+       {
+           t->next=NULL;
+          
+       }
+       else
+       
+       t->next=r;
+       r=t;
+       
+    }
+    return r;
+}
+//main
+int main()
+{ int a,b;
+struct poly*x,*y;
+ printf("enter the no.of terms of 1st polynomial\n");
+ scanf("%i",&a);
+ x=input(a);
+ x=sort(x);
+ display(x);
+ 
+ printf("enter the no.of terms of 2nd polynomial\n");
+ scanf("%i",&b);
+ y=input(b);
+ y =sort(y);
+ display(y);
+ printf("\nSum :");
+ struct poly*r;
+ r=add(x,y);
+ r=sort(r);
+ display(r);
+ fflush(stdin);
+}
