@@ -1,0 +1,156 @@
+//binary search tree operations
+#include<stdio.h>
+#include <stdlib.h>
+
+struct node{
+  int info;
+  struct node*left;
+  struct node*right;
+};
+struct node* a=NULL;
+struct node* parent=NULL;
+
+//add
+void ad(struct node * t,struct node * ptr,char side)
+{  if(t!=NULL) 
+  { parent=t;
+    printf("here%i",t->info);
+    if(t->info>ptr->info)
+    
+    { printf("left of %i",t->info);
+    ad(t->left,ptr,'l');
+    }
+    
+    if(t->info<ptr->info)
+    {printf("right");
+    ad(t->right,ptr,'r');
+    }
+
+  }
+  
+  if(t==NULL)
+  {  switch(side)
+   {
+     case 'l':parent->left=ptr;
+              break;
+    case 'r':parent->right=ptr;
+            break;
+    
+   }
+    
+  }
+  
+}
+//insert
+void insert()
+{ struct node* ptr;
+   ptr=(struct node*)malloc(sizeof(struct node));
+   printf("enter data\n");
+   scanf("%i",&(ptr->info));
+    ptr->left=NULL;
+     ptr->right=NULL;
+
+   if(a==NULL)
+   {
+    
+     a=ptr;
+     
+
+   }
+   else
+   ad(a,ptr,'o');
+   
+
+   
+  
+}
+//inorder traversal
+void inorder(struct node* l)
+{
+  if(l!=NULL)
+  { 
+    inorder(l->left);
+    printf("%i ",l->info);
+    inorder(l->right);
+  }
+}
+//preorder
+void preorder(struct node* a)
+{
+  if(a!=NULL)
+  { printf("%i ",a->info);
+    preorder(a->left);
+    preorder(a->right);
+  }
+}
+
+//post order
+void postorder(struct node* a)
+{
+  if(a!=NULL)
+  { 
+    postorder(a->left);
+    postorder(a->right);
+    printf("%i ",a->info);
+  }
+}
+//delete
+void findFullNode(struct node *root,int item,char side) 
+{
+    if (root != NULL) 
+    { printf("in");
+    
+    if(root->right==NULL||root->left==NULL)
+    {if(root->info==item)
+             {
+               free(root);
+               if(side=='l')
+               parent->left=NULL;
+               else
+               parent->right=NULL;
+    }}
+        findFullNode(root->left,item,'l'); 
+        
+           
+            
+
+        findFullNode(root->right,item,'r');
+        parent=root;
+    } 
+} 
+void delet(struct node* a)
+{int item;
+printf("Enter the node to be deleted\n");
+scanf("%i",&item);
+findFullNode(a,item,'o');
+  
+}
+int main()
+{ int c=1;
+int ch;
+do{
+printf("Enter option \n1.insert\n2.inorder Traversal\n3.preorder Traversal\n4.postorder Traversal\n5.Delete\n6.Exit\n");
+scanf("%i",&ch);
+switch(ch)
+{case 1: do
+{
+  insert();
+  printf("Do you want to continue entering elements(0/1)");
+  scanf("%i",&c);
+}while(c==1);
+        break;
+  case 2:inorder(a);
+          break;
+  case 3:preorder(a);
+        break;
+  case 4:postorder(a);
+        break;
+  case 5:delet(a);
+      break;
+
+}}while(ch<6);
+
+ 
+
+}
+
