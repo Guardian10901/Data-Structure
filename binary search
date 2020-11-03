@@ -100,15 +100,21 @@ void findFullNode(struct node *root,int item,char side)
     if (root != NULL) 
     { //printf("in");
     
-    if(root->right==NULL||root->left==NULL)
-    {if(root->info==item)
+    
+    //if(root->right==NULL||root->left==NULL)
+    if(root->info==item)
+             { if(root->right!=NULL||root->left!=NULL)
              {
+               root->info=root->right->left->info;
+               root->right->left=NULL;
+             return;
+             }
                free(root);
                if(side=='l')
                parent->left=NULL;
                else
                parent->right=NULL;
-    }}parent=root;
+    }parent=root;
         findFullNode(root->left,item,'l'); 
         
            
@@ -153,4 +159,3 @@ switch(ch)
  
 
 }
-
