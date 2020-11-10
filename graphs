@@ -22,7 +22,7 @@ struct Node {
 struct Edge {
 	int src, dest;
 };
-
+int stack[30],top=-1,tail=-1;
 // Function to create an adjacency list from specified edges
 struct Graph* createGraph(struct Edge edges[], int n)
 {
@@ -129,6 +129,101 @@ for (i = 0; i <=N; i++)
  }
 
 }
+void brthsea(int v)
+{ 
+struct Node* ptr=graph->head[v];
+
+printf("%i    ",v);  
+	int i;
+for (i = 0; i <=N; i++)
+	{
+		// print current vertex and all ts neighbors
+		struct Node* pt = graph->head[i];
+		while (pt != NULL)
+		{ if(pt->dest==v)
+			pt->visited=true;
+      
+			pt = pt->next;
+		}
+
+		
+	}
+while(ptr!=NULL)
+{ if(ptr->visited!=true)
+    printf("%i    ",ptr->dest);
+    if(top==-1)
+      {
+        top=0;
+        tail=0;
+        
+      }else
+      tail++;
+      stack[tail]=ptr->dest;  
+       int i;
+for (i = 0; i <=N; i++)
+	{
+		
+		struct Node* pt = graph->head[i];
+		while (pt != NULL)
+		{ if(pt->dest==ptr->dest)
+			pt->visited=true;
+      
+			pt = pt->next;
+		}
+       
+     
+
+}
+      ptr=ptr->next;
+
+}
+while(top<=tail)
+{ v=stack[top++];
+
+struct Node* ptr=graph->head[v];
+
+		
+	
+while(ptr!=NULL)
+{ //printf("here %i",ptr->dest);
+if(ptr->visited==true){
+  ptr=ptr->next;
+  continue;
+}
+if(ptr->visited==false)
+    {
+    printf("%i    ",ptr->dest);
+    if(top==-1)
+      {
+        top=0;
+        tail=1;
+        
+      }else
+      tail++;
+      stack[tail]=ptr->dest; 
+     } int i;
+for (i = 0; i <=N; i++)
+	{
+		
+		struct Node* pt = graph->head[i];
+		while (pt != NULL)
+		{ if(pt->dest==ptr->dest)
+			pt->visited=true;
+      
+			pt = pt->next;
+		}
+       
+     
+
+}
+  
+  
+
+ ptr=ptr->next;
+}
+
+}
+}
 
 // Directed Graph Implementation in C
 int main(void)
@@ -155,7 +250,7 @@ int main(void)
 
   }
   else{
-    brthsea();
+    brthsea(1);
   }
 
 	return 0;
