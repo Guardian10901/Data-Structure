@@ -1,11 +1,12 @@
 
+
 #include<stdio.h>
 #include<string.h>
 struct student{
   char name[20];
   float h;
   int w;
-}arr[3],au[3];
+}arr[5],au[5];
 void merge(int n)
 {//printf("print\n");
   int size=1;
@@ -90,7 +91,7 @@ printf(" input file\n");
 fclose(ip);
 merge(i);
 ip=fopen("output.txt","w");
-for(int i=0;i<3;i++)
+for(int i=0;i<5;i++)
 {fwrite(&arr[i],sizeof(struct student),1,ip);
 
    //printf("%s %.1f %i\n",arr[i].name,arr[i].h,arr[i].w);
@@ -108,4 +109,5 @@ fclose(ip);
 
 
 }
+
 
