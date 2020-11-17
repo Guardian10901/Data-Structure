@@ -22,19 +22,20 @@ void quick(int lb,int ub)
     //printf("%i%i",i,j);
    do
     {//printf("i<j");
-     int t=strcmp(p.name,arr[i].name);
-      //printf("1t=%i\n",t);
+     int t=strcmp(p.name,arr[j].name);
+      //printf("1t=%s  %i\n",arr[j].name,t);
       
       while(t<0)
       {
       j--;
-      //printf("3t=%i\n",t);
+     //printf("3t=%s   %i\n",arr[j].name,t);
        t=strcmp(p.name,arr[j].name);
 
       }
+       t=strcmp(p.name,arr[i].name);
       do
       {i++;
-      //printf("2t=%i\n",t);
+      //printf("2t=%s   %i\n",arr[i].name,t);
       t=strcmp(p.name,arr[i].name);
 
       } while(t>0&&i<5);
@@ -46,13 +47,13 @@ void quick(int lb,int ub)
     } while(i<j);
      exchange(lb,j);
       quick(lb,j-1);
-      //quick(j+1,ub);
+      quick(j+1,ub);
       }
 }
 int main()
 {FILE *ip;
- struct student o;
- 
+struct student o;
+
 
 ip=fopen("input.txt","r");
 int i=0;
