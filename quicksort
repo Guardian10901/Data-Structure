@@ -5,9 +5,10 @@ struct student{
   char name[20];
   float h;
   int w;
-}arr[3];
+}arr[5];
 void exchange(int i,int j)
-{//printf("\n%i%i\n",i,j);
+{//printf("\n%i  %i\n",i,j);
+  
   struct student temp=arr[i];
   arr[i]=arr[j];
   arr[j]=temp;
@@ -22,32 +23,37 @@ void quick(int lb,int ub)
    do
     {//printf("i<j");
      int t=strcmp(p.name,arr[i].name);
-      //printf("t=%i\n",t);
+      //printf("1t=%i\n",t);
       
       while(t<0)
       {
       j--;
-      //printf("t=%i\n",t);
+      //printf("3t=%i\n",t);
+       t=strcmp(p.name,arr[j].name);
+
       }
       do
       {i++;
-      //printf("t=%i\n",t);
+      //printf("2t=%i\n",t);
       t=strcmp(p.name,arr[i].name);
 
-      } while(t>0&&i<3);
+      } while(t>0&&i<5);
       //j--;
-      //printf("%i%i",i,j);
+      
      if(i<j)
      exchange(i,j);
+     //printf("%i%i",i,j);
     } while(i<j);
      exchange(lb,j);
       quick(lb,j-1);
-      quick(j+1,ub);
+      //quick(j+1,ub);
       }
 }
 int main()
 {FILE *ip;
  struct student o;
+ 
+
 ip=fopen("input.txt","r");
 int i=0;
 printf(" input file\n");
@@ -59,9 +65,9 @@ printf(" input file\n");
         
         }
 fclose(ip);
-quick(0,2);
+quick(0,4);
 ip=fopen("output.txt","w");
-for(int i=0;i<3;i++)
+for(int i=0;i<5;i++)
 {fwrite(&arr[i],sizeof(struct student),1,ip);
 
    //printf("%s %.1f %i\n",arr[i].name,arr[i].h,arr[i].w);
@@ -79,4 +85,3 @@ fclose(ip);
 
 
 }
-
