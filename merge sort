@@ -8,50 +8,44 @@ struct student{
   int w;
 }arr[5],au[5];
 void merge(int n)
-{//printf("print\n");
+{
   int size=1;
   int l1,l2,u1,u2,k;
   while(size<n)
-  {//printf("size\n");
+  {
     k=0;
   l1=0;
   int i,j;
   while(l1+size<n)
-  {//printf("dive\n");
-     //printf("n=%i",n);
+  {
     l2=l1+size;
  
     u1=l2-1;
    
     u2=(l2+size-1<n)?l2+size-1:n-1;
-     //printf("%i%i %i%i\n",l1,u1,l2,u2);
     if(l1<n&&l2<n&&u1<n&&u2<n)
     {for( i=l1, j=l2;i<=u1&&j<=u2;k++)
-    {//printf("hh");
+    {
       if(arr[i].h<arr[j].h)
       {
         au[k]=arr[i++];
-        //printf("1%s",au[k].name);
+       
       }
       else
       {
         if(arr[i].h>arr[j].h)
         au[k]=arr[j++];
-       // printf("2%s",au[k].name);
       }
     }
       while(i<=u1)
       {
         au[k]=arr[i];
-        // printf("3%.1f",au[k].h);
         i++;
         k++;
-        //printf("3%.1f",arr[i].h);
       }
       while(j<=u2)
       {
         au[k++]=arr[j++];
-       // printf("4%s",au[k].name);
       }
       l1=u2+1;
     }
@@ -61,9 +55,7 @@ void merge(int n)
   for(i=l1;k<n;i++)
   {
     au[k]=arr[i];
-    //printf("5%i",au[k].w);
     k++;
-    //printf("5%i",au[k].w);
   }
   for(i=0;i<n;i++)
   {
@@ -94,7 +86,6 @@ ip=fopen("output.txt","w");
 for(int i=0;i<5;i++)
 {fwrite(&arr[i],sizeof(struct student),1,ip);
 
-   //printf("%s %.1f %i\n",arr[i].name,arr[i].h,arr[i].w);
 }
 fclose(ip);
 ip=fopen("output.txt","r");
